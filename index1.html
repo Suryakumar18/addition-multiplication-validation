@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Static Template</title>
+  
+  </head>
+  <body>
+
+    <h1>experiment number 1</h1>
+    <label>Input 1</label>
+    <input id="in1" placeholder="enter the first number" oninput="multiply()"/>
+    <br><br>
+    <label>Input 2</label>
+    <input id="in2" placeholder="enter the second number" oninput="multiply()"/>
+    <p>The product of input 1 and input 2 is</p>
+    <p id="result"></p>
+
+    <button type="button" onclick="validate1()" id="button">Validate Multiplication</button>
+    <button type="button" onclick="division()" id="button-div">Validate Division</button>
+    <div id="pass">
+
+    <div class="popup">
+        <div class="popup-content">
+            <p class="close">close</p>
+            <div class="" id="pop" style="color: green;">
+
+            </div>
+
+        </div>
+        
+    </div>
+
+    <div class="popup-div">
+        <div class="popup-content-div">
+            <p class="close-div">close</p>
+            <div class="" id="pop-di" style="color: green;">
+
+
+            </div>
+
+        </div>
+        
+    </div>
+
+
+
+
+
+    <script>
+     function multiply(){
+            var number1 = document.getElementById("in1").value;
+            var number2 = document.getElementById("in2").value;
+            var results =parseInt(number1) *parseInt(number2);
+            document.getElementById("result").innerHTML=results;
+            
+            
+    
+    }
+    function divide(){
+            var number1 = document.getElementById("in1").value;
+            var number2 = document.getElementById("in2").value;
+            var results =parseInt(number1) / parseInt(number2);
+            document.getElementById("result").innerHTML=results;
+            
+    }
+
+    function validate1(){
+       //static validating code
+        let text = '{"inputs":[' +'{"firstNum":1,"lastNum":1},' +'{"firstNum":4,"lastNum":5 },' +'{"firstNum":9,"lastNum":9 },' +'{"firstNum":4,"lastNum":5 },' +'{"firstNum":5,"lastNum":9 }]}';
+        
+        const obj = JSON.parse(text);
+        
+        for(var i =0;i<5;i++){
+            try{
+                const firstnumber = obj.inputs[i].firstNum;
+                document.getElementById("in1").value=firstnumber;
+                const secondnumber = obj.inputs[i].lastNum;
+                document.getElementById("in2").value=secondnumber;
+                const valoutput = 20;
+                multiply();
+                const valoutput2 = document.getElementById("result").innerHTML;
+                if(firstnumber==0||secondnumber==0){
+                    throw "zero found error";
+                }
+                else if(firstnumber==null||secondnumber==null){
+                    throw "null error";
+                }
+                else{
+                    if(valoutput==valoutput2){
+                        var x = i+1
+                        document.getElementById("pop").innerHTML +="<p style=\"color:blue\"><span style=\"color:green\">test case  "+x+"   passed</span> <br>firstValue= "+firstnumber+",secondValue= " +secondnumber+"Answer= "+valoutput2+"</p>";
+            
+                }
+                    else{
+                        document.getElementById("pop").innerHTML +=
+                        "<h4  style=\"color:red\";>Test case  failed</h4>"+"<p style=\"color:blue\">firstnumber= "+firstnumber+",secondnumber= " +secondnumber+"Answer= "+valoutput2+"</p>";
+                
+                }
+                
+               
+
+
+                
+                }
+            }
+            catch(Exception){
+                document.getElementById("pop").innerHTML=Exception;
+
+            }
+
+
+
+        }
+
+    }
+
+    function division(){
+        let text = '{"inputs":[' +'{"firstNum":8,"lastNum":9 },' +'{"firstNum":4,"lastNum":5 },' +'{"firstNum":9,"lastNum":9 },' +'{"firstNum":4,"lastNum":5 },' +'{"firstNum":5,"lastNum":9 }]}';
+        
+        const obj = JSON.parse(text);
+        
+        for(var i =0;i<5;i++){
+            try{
+                const firstnumber = obj.inputs[i].firstNum;
+                document.getElementById("in1").value=firstnumber;
+                const secondnumber = obj.inputs[i].lastNum;
+                document.getElementById("in2").value=secondnumber;
+                const valoutput = firstnumber/secondnumber;
+                divide();
+                const valoutput2 = document.getElementById("result").innerHTML;
+
+                if(firstnumber==null||secondnumber==null){
+                    throw "null error"
+                }
+                else if(firstnumber==0||secondnumber==0){
+                    throw "zero found error"
+                }
+                else if(typeof firstnumber=="string"||typeof secondnumber=="string"){
+                    throw "data type error"
+                }
+
+                else{
+                        if(valoutput==valoutput2){
+                        var x = i+1
+
+
+                        document.getElementById("pop-di").innerHTML +="<p style=\"color:blue\"><span style=\"color:green\">test case  "+x+"   passed</span> <br>firstValue= "+firstnumber+",secondValue= " +secondnumber+"Answer= "+valoutput+"</p>";
+
+                        
+                
+                    }
+                    else{
+                        z= document.getElementById("pop-di").innerHTML +=
+                        "<p style=\"color:blue\"><span  style=\"color:red\";>Test case  failed</span><br>firstnumber= "+firstnumber+",secondnumber= " +secondnumber+"Answer= "+valoutput2+"</p>";
+                        
+                    
+                    }
+                }
+
+            }
+            catch(e){
+                v =document.getElementById("pop-div").innerHTML=e;
+              
+
+
+
+            }
+
+
+
+        }
+
+    }
+
+
+    //popup code
+    document.getElementById("button").addEventListener("click",function(){
+        document.querySelector(".popup").style.display="flex";
+    })
+
+    document.querySelector(".close").addEventListener("click",function(){
+        document.querySelector(".popup").style.display="none";
+    })
+
+    //popup code for division
+    document.getElementById("button-div").addEventListener("click",function(){
+        document.querySelector(".popup-div").style.display="flex";
+    })
+
+    document.querySelector(".close-div").addEventListener("click",function(){
+        document.querySelector(".popup-div").style.display="none";
+    })
+
+    </script>
+
+
+<style>
+    body [type=button]{
+        background-color: rgb(65, 126, 65);
+        border-radius: 10px;
+        padding: 5px;
+        color: white;
+    }
+    .popup{
+        background: rgba(0,0,0,0.6);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+    .popup-content{
+        height: 380px;
+        width: 500px;
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        position: relative;
+    }
+    .close{
+        position: absolute;
+        top: -14px;
+        right: 1px;
+        cursor: pointer;
+    }
+
+    .popup-div{
+        background: rgba(0,0,0,0.6);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+    .popup-content-div{
+        height: 380px;
+        width: 500px;
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        position: relative;
+    }
+    .close-div{
+        position: absolute;
+        top: -14px;
+        right: 1px;
+        cursor: pointer;
+    }
+
+</style>
+   
+  </body>
+</html>
